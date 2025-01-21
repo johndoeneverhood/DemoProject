@@ -1,0 +1,51 @@
+﻿@model List<GroupBrandItem>
+@{
+    Layout = "_Layout";
+}
+
+<style type="text/css">
+
+    .btnSearchWrapper
+    {
+        margin-top:1rem;
+    }
+    .error{
+        color:red;
+    }
+
+</style>
+
+<h1>PARTS SEARCHER</h1>
+
+<form asp-action="Index" asp-controller="Home" method="post">
+    <input name="detailNum" type="text" value="@ViewBag.DetailNum" />
+    <div class="btnSearchWrapper">
+        <button type="submit">
+            <b>НАЙТИ ДЕТАЛЬ</b>
+        </button>
+    </div>
+</form>
+
+@if (Model?.Count > 0)
+{
+    <table>
+        @foreach (GroupBrandItem item in Model)
+        {
+            <tr>
+                <td>
+                    @item.DetailNum
+                </td>
+                <td>
+                    @item.MakeName
+                </td>
+                <td>
+                    <span>@(item.OriginalMinPrice > 0 ? item.OriginalMinPrice : item.AnalogMinPrice)</span>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p class="error">@ViewBag.Error</p>
+}
